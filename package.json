@@ -1,5 +1,5 @@
 {
-  "name": "digital-bank",
+  "name": "virtual-bookshelf",
   "version": "1.0.0",
   "main": "src/infra/server.ts",
   "license": "MIT",
