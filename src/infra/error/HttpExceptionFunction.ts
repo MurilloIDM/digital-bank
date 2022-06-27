@@ -15,7 +15,7 @@ export function HttpExceptionFunction(
   }
 
   return response.status(500).json({
-    message: error.message,
+    message: "Internal server error",
     status: 500,
   });
 }
