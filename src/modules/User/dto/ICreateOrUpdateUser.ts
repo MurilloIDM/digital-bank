@@ -6,6 +6,6 @@ export interface ICreateOrUpdateUser {
   rolesDisconnect?: IUserRole[];
 }
 
-interface IUserRole {
+export interface IUserRole {
   id: string;
 }

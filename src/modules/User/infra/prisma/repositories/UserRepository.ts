@@ -1,7 +1,7 @@
 import { IUser } from "../../../dto/IUser";
 import { ICreateOrUpdateUser } from "../../../dto/ICreateOrUpdateUser";
 import { IUserRepository } from "../../../repositories/IUserRepository";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
 import { prisma } from "../../../../../database/prismaPostgres";
 
 export class UserRepository implements IUserRepository {
@@ -49,8 +49,11 @@ export class UserRepository implements IUserRepository {
 
   async listAll(): Promise<IUser[]> {
     const users = await this.prisma.user.findMany({
-      include: {
-        roles: true
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        roles: true,
       },
     });
     return users;
@@ -58,6 +61,13 @@ export class UserRepository implements IUserRepository {
 
   async delete(id: string): Promise<void> {
     await this.prisma.user.delete({ where: { id } });
+  }
+
+  async findByEmail(email: string): Promise<User> {
+    const user = await this.prisma.user.findFirst({
+      where: { email }
+    });
+    return user;
   }
 
 }
