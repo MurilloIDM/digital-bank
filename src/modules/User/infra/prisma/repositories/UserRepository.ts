@@ -55,6 +55,9 @@ export class UserRepository implements IUserRepository {
         email: true,
         roles: true,
       },
+      orderBy: {
+        createdAt: "desc"
+      }
     });
     return users;
   }
