@@ -2,7 +2,7 @@ export interface ICreateOrUpdateUser {
   name: string;
   email: string;
   password: string;
-  rolesId: IUserRole[];
+  rolesId?: IUserRole[];
   rolesDisconnect?: IUserRole[];
 }
 

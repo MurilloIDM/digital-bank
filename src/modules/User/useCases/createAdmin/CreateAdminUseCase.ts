@@ -7,7 +7,7 @@ import { ICreateOrUpdateUser } from "../../dto/ICreateOrUpdateUser";
 import { IUserRepository } from "../../repositories/IUserRepository";
 
 @injectable()
-export class CreateUserUseCase {
+export class CreateAdminUseCase {
   constructor(
     @inject("UserRepository")
     private userRepository: IUserRepository,

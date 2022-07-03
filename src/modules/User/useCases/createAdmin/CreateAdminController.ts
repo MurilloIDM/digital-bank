@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { container } from "tsyringe";
-import { CreateUserUseCase } from "./CreateUserUseCase";
+import { CreateAdminUseCase } from "./CreateAdminUseCase";
 
-export class CreateUserController {
+export class CreateAdminController {
 
   async handle(request: Request, response: Response): Promise<Response<void>> {
     const errors = validationResult(request);
@@ -14,9 +14,9 @@ export class CreateUserController {
 
     const { name, email, password, rolesId } = request.body;
 
-    const createUserUseCase = container.resolve(CreateUserUseCase);
+    const createAdminUseCase = container.resolve(CreateAdminUseCase);
 
-    await createUserUseCase.execute({ name, password, email, rolesId });
+    await createAdminUseCase.execute({ name, password, email, rolesId });
 
     return response.status(201).send();
   }
