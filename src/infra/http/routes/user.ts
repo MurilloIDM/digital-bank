@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { body } from "express-validator";
 import { CreateAdminController } from "../../../modules/User/useCases/createAdmin/CreateAdminController";
-import { CreateReaderController } from "../../../modules/User/useCases/createReader/createReaderController";
+import { CreateReaderController } from "../../../modules/User/useCases/createReader/CreateReaderController";
+import { DeleteUserController } from "../../../modules/User/useCases/deleteUser/DeleteUserController";
 import { ListAllUsersController } from "../../../modules/User/useCases/listAllUsers/ListAllUsersController";
 
 const userRouter = Router();
@@ -9,6 +10,7 @@ const userRouter = Router();
 const createAdminController = new CreateAdminController();
 const createReaderController = new CreateReaderController();
 const listAllUsersController = new ListAllUsersController();
+const deleteUserController = new DeleteUserController();
 
 userRouter.post(
   "/admin/",
@@ -31,5 +33,10 @@ userRouter.get(
   "/",
   listAllUsersController.handle
 );
+
+userRouter.delete(
+  "/:id",
+  deleteUserController.handle
+)
 
 export { userRouter };

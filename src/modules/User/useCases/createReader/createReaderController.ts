@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { container } from "tsyringe";
-import { CreateReaderUseCase } from "./createReaderUseCase";
+import { CreateReaderUseCase } from "./CreateReaderUseCase";
 
 export class CreateReaderController {
 
