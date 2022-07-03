@@ -4,6 +4,7 @@ import { CreateAdminController } from "../../../modules/User/useCases/createAdmi
 import { CreateReaderController } from "../../../modules/User/useCases/createReader/CreateReaderController";
 import { DeleteUserController } from "../../../modules/User/useCases/deleteUser/DeleteUserController";
 import { ListAllUsersController } from "../../../modules/User/useCases/listAllUsers/ListAllUsersController";
+import { UpdateReaderController } from "../../../modules/User/useCases/updateReader/UpdateReaderController";
 
 const userRouter = Router();
 
@@ -11,6 +12,7 @@ const createAdminController = new CreateAdminController();
 const createReaderController = new CreateReaderController();
 const listAllUsersController = new ListAllUsersController();
 const deleteUserController = new DeleteUserController();
+const updateReaderController = new UpdateReaderController();
 
 userRouter.post(
   "/admin/",
@@ -27,6 +29,14 @@ userRouter.post(
   body('email').isEmail().notEmpty().withMessage("email is string and cannot be empty."),
   body('password').isString().notEmpty().withMessage("password is string and cannot be empty."),
   createReaderController.handle,
+);
+
+userRouter.put(
+  "/reader/:id",
+  body('name').isString().notEmpty().withMessage("name is string and cannot be empty."),
+  body('email').isEmail().notEmpty().withMessage("email is string and cannot be empty."),
+  body('password').isString().notEmpty().withMessage("password is string and cannot be empty."),
+  updateReaderController.handle
 );
 
 userRouter.get(
