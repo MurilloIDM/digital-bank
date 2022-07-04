@@ -1,6 +1,7 @@
 import { User } from "@prisma/client";
 import { IUser } from "../dto/IUser";
 import { ICreateOrUpdateUser } from "../dto/ICreateOrUpdateUser";
+import { IUserRole } from "../dto/IUserRole";
 
 export interface IUserRepository {
   create(payload: ICreateOrUpdateUser): Promise<void>;
@@ -8,5 +9,5 @@ export interface IUserRepository {
   listAll(): Promise<IUser[]>;
   delete(id: string): Promise<void>;
   findByEmail(email: string): Promise<User>;
-  findById(id: string): Promise<User>;
+  findById(id: string): Promise<IUserRole>;
 }

@@ -3,6 +3,7 @@ import { ICreateOrUpdateUser } from "../../../dto/ICreateOrUpdateUser";
 import { IUserRepository } from "../../../repositories/IUserRepository";
 import { PrismaClient, User } from "@prisma/client";
 import { prisma } from "../../../../../database/prismaPostgres";
+import { IUserRole } from "../../../dto/IUserRole";
 
 export class UserRepository implements IUserRepository {
   private prisma: PrismaClient;
@@ -73,9 +74,16 @@ export class UserRepository implements IUserRepository {
     return user;
   }
 
-  async findById(id: string): Promise<User> {
+  async findById(id: string): Promise<IUserRole> {
     const user = await this.prisma.user.findUnique({
-      where: { id }
+      where: { id },
+      include: {
+        roles: {
+          select: {
+            id: true
+          }
+        }
+      }
     });
     return user;
   }
