@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { body } from "express-validator";
+
 import { AuthUserController } from "../../../modules/User/useCases/authUser/AuthUserController";
 import { CreateAdminController } from "../../../modules/User/useCases/createAdmin/CreateAdminController";
 import { CreateReaderController } from "../../../modules/User/useCases/createReader/CreateReaderController";
@@ -7,6 +8,8 @@ import { DeleteUserController } from "../../../modules/User/useCases/deleteUser/
 import { ListAllUsersController } from "../../../modules/User/useCases/listAllUsers/ListAllUsersController";
 import { UpdateAdminController } from "../../../modules/User/useCases/updateAdmin/UpdateAdminController";
 import { UpdateReaderController } from "../../../modules/User/useCases/updateReader/UpdateReaderController";
+
+import { ensureAuthenticationReader } from "../middlewares/EnsureAuthenticationReader";
 import { ensureAuthenticationMasterAdmin } from "../middlewares/EnsureAuthenticationMasterAdmin";
 
 const userRouter = Router();
@@ -39,7 +42,6 @@ userRouter.post(
 
 userRouter.post(
   "/reader/",
-  ensureAuthenticationMasterAdmin,
   body('name').isString().notEmpty().withMessage("name is string and cannot be empty."),
   body('email').isEmail().notEmpty().withMessage("email is string and cannot be empty."),
   body('password').isString().notEmpty().withMessage("password is string and cannot be empty."),
@@ -48,7 +50,7 @@ userRouter.post(
 
 userRouter.put(
   "/reader/:id",
-  ensureAuthenticationMasterAdmin,
+  ensureAuthenticationReader,
   body('name').isString().notEmpty().withMessage("name is string and cannot be empty."),
   body('email').isEmail().notEmpty().withMessage("email is string and cannot be empty."),
   body('password').isString().notEmpty().withMessage("password is string and cannot be empty."),
@@ -67,11 +69,13 @@ userRouter.put(
 
 userRouter.get(
   "/",
+  ensureAuthenticationMasterAdmin,
   listAllUsersController.handle
 );
 
 userRouter.delete(
   "/:id",
+  ensureAuthenticationMasterAdmin,
   deleteUserController.handle
 )
 
