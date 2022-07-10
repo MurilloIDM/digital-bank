@@ -23,3 +23,9 @@ model Role {
   description String
   user        User[]
 }
+
+model Category {
+  id          String @id @default(uuid())
+  name        String
+  description String
+}
