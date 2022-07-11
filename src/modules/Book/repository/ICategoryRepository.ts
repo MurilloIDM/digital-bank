@@ -7,4 +7,5 @@ export interface ICategoryRepository {
   listAll(): Promise<Category[]>;
   delete(id: string): Promise<void>;
   findByName(name: string): Promise<Category>;
+  findById(id: string): Promise<Category>;
 }

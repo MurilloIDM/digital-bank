@@ -30,7 +30,11 @@ export class CategoryRepository implements ICategoryRepository {
   }
 
   async listAll(): Promise<Category[]> {
-    const categories = await this.prisma.category.findMany();
+    const categories = await this.prisma.category.findMany({
+      orderBy: {
+        name: "asc"
+      } 
+    });
     return categories;
   }
 
@@ -47,6 +51,11 @@ export class CategoryRepository implements ICategoryRepository {
         }
       }
     });
+    return category;
+  }
+
+  async findById(id: string): Promise<Category> {
+    const category = await this.prisma.category.findUnique({ where: { id } });
     return category;
   }
 
