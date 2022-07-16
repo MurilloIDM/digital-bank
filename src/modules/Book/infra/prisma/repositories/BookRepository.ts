@@ -63,7 +63,7 @@ export class BookRepository implements IBookRepository {
   }
 
   async listAll({ name, page, number_per_page }: IListAllBook): Promise<IPaginationBooks> {
-    const skipValue = page * number_per_page;
+    const skipValue = (page - 1) * number_per_page;
 
     const queryDetails = {
       skip: skipValue,

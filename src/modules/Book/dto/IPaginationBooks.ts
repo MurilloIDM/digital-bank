@@ -3,7 +3,7 @@ import { Category } from "@prisma/client";
 export interface IPaginationBooks {
   books: IBook[];
   actualPage?: number;
-  totalPages?: number;
+  isNextPage?: boolean;
   totalElements?: number;
 }
 
