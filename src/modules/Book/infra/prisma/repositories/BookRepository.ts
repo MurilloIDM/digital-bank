@@ -1,5 +1,6 @@
 import { Book, PrismaClient } from "@prisma/client";
 import { prisma } from "../../../../../database/prismaPostgres";
+import { IBook } from "../../../dto/IBook";
 
 import { ICreateOrUpdateBook } from "../../../dto/ICreateOrUpdateBook";
 import { IListAllBook } from "../../../dto/IListAllBook";
@@ -119,8 +120,15 @@ export class BookRepository implements IBookRepository {
     await this.prisma.book.delete({ where: { id }});
   }
 
-  async findByNameAndAuthorAndUser(name: string, author: string, userId: string): Promise<Book> {
+  async findByNameAndAuthorAndUser(name: string, author: string, userId: string): Promise<IBook> {
     const book = await this.prisma.book.findFirst({
+      include: {
+        categories: {
+          select: {
+            id: true
+          }
+        }
+      },
       where: {
         author: {
           mode: "insensitive",
@@ -134,6 +142,11 @@ export class BookRepository implements IBookRepository {
       },
     });
 
+    return book;
+  }
+
+  async findById(id: string): Promise<Book> {
+    const book = await this.prisma.book.findUnique({ where: { id } });
     return book;
   }
 
