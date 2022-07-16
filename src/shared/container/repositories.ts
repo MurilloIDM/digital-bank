@@ -6,6 +6,8 @@ import { IUserRepository } from "../../modules/User/repositories/IUserRepository
 import { UserRepository } from "../../modules/User/infra/prisma/repositories/UserRepository";
 import { ICategoryRepository } from "../../modules/Book/repository/ICategoryRepository";
 import { CategoryRepository } from "../../modules/Book/infra/prisma/repositories/CategoryRepository";
+import { IBookRepository } from "../../modules/Book/repository/IBookRepository";
+import { BookRepository } from "../../modules/Book/infra/prisma/repositories/BookRepository";
 
 container.registerSingleton<IRoleRepository>(
   "RoleRepository",
@@ -20,4 +22,9 @@ container.registerSingleton<IUserRepository>(
 container.registerSingleton<ICategoryRepository>(
   "CategoryRepository",
   CategoryRepository
+);
+
+container.registerSingleton<IBookRepository>(
+  "BookRepository",
+  BookRepository
 );

@@ -6,7 +6,7 @@ export interface ICreateOrUpdateBook {
   cover_url: string;
   userId?: string;
   categories?: ICategory[];
-  disconnectCategories: ICategory[];
+  disconnectCategories?: ICategory[];
 }
 
 interface ICategory {

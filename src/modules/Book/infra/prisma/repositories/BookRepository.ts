@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Book, PrismaClient } from "@prisma/client";
 import { prisma } from "../../../../../database/prismaPostgres";
 
 import { ICreateOrUpdateBook } from "../../../dto/ICreateOrUpdateBook";
@@ -117,6 +117,24 @@ export class BookRepository implements IBookRepository {
 
   async delete(id: string): Promise<void> {
     await this.prisma.book.delete({ where: { id }});
+  }
+
+  async findByNameAndAuthorAndUser(name: string, author: string, userId: string): Promise<Book> {
+    const book = await this.prisma.book.findFirst({
+      where: {
+        author: {
+          mode: "insensitive",
+          equals: author,
+        },
+        name: {
+          mode: "insensitive",
+          equals: name,
+        },
+        userId
+      },
+    });
+
+    return book;
   }
 
 }
