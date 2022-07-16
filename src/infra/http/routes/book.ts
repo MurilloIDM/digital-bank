@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { body, query } from "express-validator";
 import { CreateBookController } from "../../../modules/Book/useCases/createBook/CreateBookController";
+import { DeleteBookController } from "../../../modules/Book/useCases/deleteBook/DeleteBookController";
 import { ListAllBookController } from "../../../modules/Book/useCases/ListAllBook/ListAllBookController";
 import { UpdateBookController } from "../../../modules/Book/useCases/updateBook/UpdateBookController";
 import { ensureAuthenticationReader } from "../middlewares/EnsureAuthenticationReader";
@@ -10,6 +11,7 @@ const bookRouter = Router();
 const createBookController = new CreateBookController();
 const updateBookController = new UpdateBookController();
 const listAllBookController = new ListAllBookController();
+const deleteBookController = new DeleteBookController();
 
 bookRouter.post(
   "/",
@@ -40,6 +42,12 @@ bookRouter.get(
   query('page').default(1).notEmpty().withMessage("page cannot be empty."),
   query('number_per_page').default(10).notEmpty().withMessage("number_per_page cannot be empty."),
   listAllBookController.handle
+);
+
+bookRouter.delete(
+  "/:id",
+  ensureAuthenticationReader,
+  deleteBookController.handle
 );
 
 export { bookRouter };
